@@ -16,12 +16,12 @@ typedef struct node_tag
 
 node* newnode(char str[], int val)
 {
-	 node* new_node = (node*)malloc(sizeof(node));
-	 strcpy(new_node->process_name, str);
-	 new_node->priority = val;
-	 new_node->next = NULL;
+	 node* temp = (node*)malloc(sizeof(node));
+	 strcpy(temp->process_name, str);
+	 temp->priority = val;
+	 temp->next = NULL;
 	 
-	 return new_node;
+	 return temp;
 }
 
 void push(node** head, char str[], int val)
@@ -37,13 +37,15 @@ void push(node** head, char str[], int val)
 		start->next = NULL;
 	}
 	
-	if ((*head)->priority > val) 
+	else if ((*head)->priority > val) 
 	{ 
         new_node->next = *head; 
         (*head) = new_node;
 	}
 	
-	while(start->next!=NULL && start->next->priority < new_node->priority)
+	else
+	{
+	while(start->next!=NULL && start->next->priority < val)
 	{
         start=start->next;
 	}
@@ -51,13 +53,16 @@ void push(node** head, char str[], int val)
 	temp=start->next;
 	start->next=new_node;
 	new_node->next = temp;
+}
 	
 }
 
 void peek(node** head) 
 { 
     if((*head)==NULL)
+	{
 		printf("The process queue is empty. \n");
+	}
     else{
 		printf("Process name \t Priority \t \n");
 		printf("%s \t %d \t \n", (*head)->process_name, (*head)->priority);
@@ -67,7 +72,9 @@ void peek(node** head)
 void pop(node** head) 
 { 
     if((*head)==NULL)
-		return;
+	{
+	    printf("The process queue is empty. \n");
+	}
     else{
     node* temp = *head; 
 	printf("The following process will be marked completed : \nProcess name \t Priority \t \n");
@@ -90,7 +97,9 @@ void age_queue(node** head)
 {
 	node *start = *head;
 	if(start == NULL)
+	{
 		printf("The process queue is empty \n");
+	}
 	else{
 		while(start!=NULL)
 	{
@@ -105,36 +114,38 @@ void age_queue(node** head)
 
 void list_process(node* head)
 {
+	node *start = head;
 	printf("\t **PROCESS TABLE** \t \n");
 	printf("Process name \t Priority \t \n");
-	if(head==NULL)
+	if(start==NULL)
 	{
 		printf("No pending processes \n");
 	}
 	else{
 		
-		while(head!=NULL)
+		while(start!=NULL)
 		{
-			printf("%s \t %d \t \n", head->process_name, head->priority);
-			head=head->next;
+			printf("%s \t %d \t \n", start->process_name, start->priority);
+			start=start->next;
 		}
 	}
 }
 
 void list_highest(node* head)
 {
+	node *start = head;
 	printf("\t **PROCESS TABLE** \t \n");
 	printf("Process name \t Priority \t \n");
-	if(head==NULL)
+	if(start==NULL)
 	{
 		printf("No pending processes \n");
 	}
 	else{
-		int x = head->priority;
-		while(head!=NULL && (head->priority==x))
+		int x = start->priority;
+		while(start!=NULL && (start->priority==x))
 		{
-			printf("%s \t %d \t \n", head->process_name, head->priority);
-			head=head->next;
+			printf("%s \t %d \t \n", start->process_name, start->priority);
+			start=start->next;
 		}
 	}
 }
@@ -146,9 +157,9 @@ void main()
 	int p;
 	int c = 0;
 
-    while(c != 7)
+    while(1)
     {
-		printf("1. Add a process \n");
+		printf("\n\n1. Add a process \n");
 		printf("2. Run the process queue (pop) \n");
 		printf("3. Print process list \n");
 		printf("4. Print highest priority processes. \n");
@@ -158,6 +169,7 @@ void main()
 
         printf("Enter your choice :");
         scanf("%d",&c);
+        printf("\n\n");
         getchar();
 
         switch(c)
@@ -169,35 +181,38 @@ void main()
             printf("Enter its priority : ");
             scanf("%d", &p);   
 			push(&head,str,p);
+			break;
 		}	
-		break;
 		case 2:
 		{
 			pop(&head);
+			break;
 		}
-		break;
         case 3:
 		{
 			list_process(head);
+			break;
 		}
-		break;
 		case 4:
 		{
 			list_highest(head);
+			break;
 		}
-		break;
 		case 5:
 		{
 			peek(&head);
+			break;
 		}
-		break;
 		case 6:
 		{
 			age_queue(&head);
+		    break;
 		}
-		break;
-        case 7: printf("\n");
-            break;
+        case 7: 
+		{
+			printf("Exiting the program.\n");
+			break;
+		}
         default:printf("\nPlease choose a valid option\n");
         }
 
