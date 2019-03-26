@@ -86,6 +86,23 @@ void pop(node** head)
 	}	
 } 
 
+void age_queue(node** head)
+{
+	node *start = *head;
+	if(start == NULL)
+		printf("The queue is empty \n");
+	else{
+		while(start!=NULL)
+	{
+        if(start->priority!= 0)
+            start->priority -=1;
+		start=start->next;
+	}
+	printf("The queue has been aged. \n ");
+	}
+}
+
+
 void list_process(node* head)
 {
 	printf("\t **PROCESS TABLE** \t \n");
