@@ -54,24 +54,36 @@ void push(node** head, char str[], int val)
 	
 }
 
-int peek(node** head) 
+void peek(node** head) 
 { 
-    return (*head)->data; 
+    if((*head)==NULL)
+		printf("The queue is empty. \n");
+    else{
+		printf("Process name \t Priority \t \n");
+		printf("%s \t %d \t \n", (*head)->process_name, (*head)->priority);
+	}
 } 
    
-node* pop(node** head) 
+void pop(node** head) 
 { 
+    if((*head)==NULL)
+		return;
+    else{
     node* temp = *head; 
+	printf("The following process will be marked completed : \nProcess name \t Priority \t \n");
+    printf("%s \t %d \t \n", temp->process_name, temp->priority);
     (*head) = (*head)->next; 
-	node* retval = temp;
     free(temp); 
 	
-	while(head!=NULL)
+	node* start = *head;
+	
+	while(start!=NULL)
 	{
-        if(head->priority!= 0)
-            head->priority -=1;
-		head=head->next;
-	}		
+        if(start->priority!= 0)
+            start->priority -=1;
+		start=start->next;
+	}	
+	}	
 } 
 
 void list_process(node* head)
@@ -112,15 +124,15 @@ void list_highest(node* head)
 	
 void main()
 {
-	node* head;
+	node* head = NULL;
 	int c = -1;
 
     while(c != 0)
     {
 		printf("1. Add a process \n");
-		printf("2. Run the process queue \n");
+		printf("2. Run the process queue (pop) \n");
 		printf("3. Print process list \n");
-		printf("4. Print highest priority tasks. \n");
+		printf("4. Print highest priority processes. \n");
 
         printf("Enter your choice :");
         scanf("%d",&c);
