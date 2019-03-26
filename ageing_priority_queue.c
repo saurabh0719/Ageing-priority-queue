@@ -9,7 +9,7 @@
 
 typedef struct node_tag 
 {
-	char[size] process_name;
+	char process_name[size];
 	int priority; //range from 1-15
 	struct node_tag* next;
 }node;
@@ -37,7 +37,7 @@ void push(node** head, char str[], int val)
 		start->next = NULL;
 	}
 	
-	if ((*head)->priority > p) 
+	if ((*head)->priority > val) 
 	{ 
         new_node->next = *head; 
         (*head) = new_node;
@@ -195,7 +195,7 @@ void main()
 		{
 			age_queue(&head);
 		}
-		break
+		break;
         case 7: printf("\n");
             break;
         default:printf("\nPlease choose a valid option\n");
