@@ -54,6 +54,7 @@ void push(node** head, char str[], int val)
         new_node->next = temp;
     }
     *head=start;
+    printf("The process has been added to the queue!\n");
     
 }
 
@@ -117,7 +118,7 @@ void age_queue(node** head)
 void list_process(node* head)
 {
     node *start = head;
-    printf("\t **PROCESS TABLE** \t \n");
+    printf("    **PROCESS TABLE** \t \n");
     printf("Process name \t Priority \t \n");
     if(start==NULL)
     {
