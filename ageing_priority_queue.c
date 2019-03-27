@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 #define size 30
 
@@ -53,7 +52,7 @@ void push(node** head, char str[], int val)
 	temp=start->next;
 	start->next=new_node;
 	new_node->next = temp;
-}
+	}
 	
 }
 
@@ -83,6 +82,8 @@ void pop(node** head)
     free(temp); 
 	
 	node* start = *head;
+	
+	//ageing the queue
 	
 	while(start!=NULL)
 	{
